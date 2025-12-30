@@ -8,12 +8,10 @@ This project was built as part of a **Full Stack Developer Intern assignment**.
 ## Tech Stack
 
 ### Frontend
-- React (Vite)
-- Axios
+- React 
 
 ### Backend
-- Node.js (LTS required)
-- Fastify
+- Node.js 
 - OpenAI API
 
 ### Database
@@ -148,15 +146,6 @@ Run npm install again
 
 ---
 
-### ❌ PowerShell execution policy error (Windows)
-
-Run PowerShell as Administrator and execute:
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-
----
-
 ## Assignment Compliance
 
 - ✔ React frontend
@@ -165,14 +154,6 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 - ✔ SQLite persistence
 - ✔ Local setup instructions
 - ✔ Clean and modular architecture
-
----
-
-## Deployment (Optional)
-
-- Frontend: Vercel or Netlify
-- Backend: Render
-- Update frontend API URL after deployment
 
 ---
 
