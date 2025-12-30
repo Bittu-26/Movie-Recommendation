@@ -1,0 +1,10 @@
+{
+  "name": "movie-backend",
+  "type": "module",
+  "dependencies": {
+    "fastify": "^4.25.0",
+    "openai": "^4.0.0",
+    "better-sqlite3": "^9.4.0",
+    "dotenv": "^16.4.0"
+  }
+}
