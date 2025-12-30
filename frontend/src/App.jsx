@@ -11,8 +11,9 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setMovies([]);        // 🔑 clear previous results
     setError("");
-    setMovies([]);
 
     if (!preference.trim()) {
       setError("Please enter a movie preference.");
@@ -24,6 +25,7 @@ function App() {
       const res = await axios.post(`${API_URL}/recommend`, {
         preference,
       });
+
       setMovies(res.data.movies || []);
     } catch (err) {
       setError("Failed to fetch recommendations.");
@@ -36,18 +38,19 @@ function App() {
     <div className="app-container">
       <h1>Movie Recommendation App</h1>
 
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit}>
         <textarea
-          placeholder='e.g. "Action movies with a strong female lead"'
+          placeholder='e.g. "Sci-fi movies with time travel"'
           value={preference}
           onChange={(e) => setPreference(e.target.value)}
         />
         <button type="submit">Get Recommendations</button>
       </form>
 
-      {loading && <p>Loading recommendations...</p>}
+      {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
 
+      {/* ✅ Results ONLY show when movies exist */}
       {movies.length > 0 && (
         <div className="results">
           <h3>Recommended Movies</h3>
