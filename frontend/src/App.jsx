@@ -1,33 +1,63 @@
-import React from 'react';
-import { useState } from 'react';
-import { getRecommendations } from './api';
+import React, { useState } from "react";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
-  const [input, setInput] = useState('');
+  const [preference, setPreference] = useState("");
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const submit = async () => {
-    const result = await getRecommendations(input);
-    setMovies(result);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMovies([]);
+
+    if (!preference.trim()) {
+      setError("Please enter a movie preference.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.post(`${API_URL}/recommend`, {
+        preference,
+      });
+      setMovies(res.data.movies || []);
+    } catch (err) {
+      setError("Failed to fetch recommendations.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div style={{ padding: '40px', fontFamily: 'Arial' }}>
-      <h2>Movie Recommendation App</h2>
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Enter your movie preference"
-        style={{ width: '300px', padding: '8px' }}
-      />
-      <br /><br />
-      <button onClick={submit}>Get Recommendations</button>
+    <div className="app-container">
+      <h1>Movie Recommendation App</h1>
 
-      <ul>
-        {movies.map((m, i) => (
-          <li key={i}>{m}</li>
-        ))}
-      </ul>
+      <form onSubmit={handleSubmit} className="form">
+        <textarea
+          placeholder='e.g. "Action movies with a strong female lead"'
+          value={preference}
+          onChange={(e) => setPreference(e.target.value)}
+        />
+        <button type="submit">Get Recommendations</button>
+      </form>
+
+      {loading && <p>Loading recommendations...</p>}
+      {error && <p className="error">{error}</p>}
+
+      {movies.length > 0 && (
+        <div className="results">
+          <h3>Recommended Movies</h3>
+          <ul>
+            {movies.map((movie, index) => (
+              <li key={index}>{movie}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
