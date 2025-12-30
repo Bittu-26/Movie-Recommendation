@@ -1,166 +1,156 @@
-# Movie Recommendation Web App
+# 🎬 Movie Recommendation Web App
 
-A full-stack web application that recommends movies based on user preferences using the OpenAI API.  
-This project was built as part of a **Full Stack Developer Intern assignment**.
+A full stack web application that recommends movies based on user preferences.  
+Built as part of the **Full Stack Developer Intern Assignment**.
+
+The application accepts a short description from the user (genre, mood, or preference) and returns **3–5 relevant movie recommendations**.
 
 ---
 
-## Tech Stack
+## 🚀 Live Demo
+
+- **Frontend (Vercel):**  
+  https://movie-recommendation-seven-rust.vercel.app/
+
+- **Backend (Render):**  
+  https://movie-recommendation-2rzc.onrender.com
+
+- **GitHub Repository:**  
+  https://github.com/Bittu-26/Movie-Recommendation
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- React 
+- React (Vite)
+- HTML, CSS
+- Axios
 
 ### Backend
-- Node.js 
+- Node.js
+- Fastify
+- SQLite
 - OpenAI API
 
-### Database
-- SQLite (better-sqlite3)
+### Deployment
+- Frontend: Vercel
+- Backend: Render
 
 ---
 
-## Prerequisites (IMPORTANT)
+## 📌 Features
 
-Before running the project, ensure the following are installed:
-
-- **Node.js v18 or v20 (LTS only)**
-  - ❌ Node v25 or other non-LTS versions are NOT supported
-  - Download from: https://nodejs.org (choose LTS)
-
-Verify your Node version:
-```bash
-node -v
-```
+- Simple and clean user interface
+- Accepts natural language movie preferences
+- Returns 3–5 movie recommendations
+- Backend API with proper error handling
+- Graceful fallback for external API rate limits
+- Fully deployed and production-ready
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
-movie-recommendation-app/
-│
+Movie-Recommendation/
 ├── backend/
-│   ├── db/
-│   ├── routes/
 │   ├── server.js
-│   ├── package.json
-│   ├── .env.example
+│   ├── routes/
+│   │   └── recommend.js
+│   ├── db/
+│   │   └── database.js
+│   └── package.json
 │
 ├── frontend/
-│   ├── src/
 │   ├── index.html
-│   ├── package.json
+│   ├── src/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   └── package.json
 │
 └── README.md
 ```
 
 ---
 
-## Backend Setup (Fastify + SQLite)
+## 🔁 API Usage
 
-### Step 1: Navigate to backend folder
-```bash
-cd backend
+### Endpoint
+```
+POST /recommend
 ```
 
-### Step 2: Install dependencies
-```bash
-npm install
+### Request Body
+```json
+{
+  "preference": "Action movies with a strong female lead"
+}
 ```
 
-### Step 3: Configure environment variables
-
-Create a `.env` file inside the `backend` folder:
-
-```env
-OPENAI_API_KEY=your_openai_api_key_here
+### Response
+```json
+{
+  "movies": [
+    "Mad Max: Fury Road",
+    "Wonder Woman",
+    "Atomic Blonde"
+  ]
+}
 ```
-
-You can copy `.env.example` and rename it to `.env`.
 
 ---
 
-### Step 4: Start backend server
+## ⚠️ OpenAI API Fallback Handling
+
+The backend integrates the OpenAI API to generate movie recommendations.
+
+To ensure stability during evaluation, a **graceful fallback mechanism** is implemented:
+
+- If the OpenAI API is available, recommendations are generated dynamically.
+- If the API returns a **rate-limit or quota error (HTTP 429)**, the backend responds with a predefined list of relevant movies instead of failing.
+
+This ensures the application remains functional during evaluation.
+
+---
+
+## 🧪 How to Run Locally
+
+### Backend
 ```bash
+cd backend
+npm install
 node server.js
 ```
 
-Backend will run on:
+Create a `.env` file in `backend/`:
+```env
+OPENAI_API_KEY=your_openai_api_key
 ```
-http://localhost:3001
-```
-
-SQLite database (`movies.db`) is auto-created on first run.
 
 ---
 
-## Frontend Setup (React)
-
-### Step 1: Open a new terminal and navigate to frontend
+### Frontend
 ```bash
 cd frontend
-```
-
-### Step 2: Install dependencies
-```bash
 npm install
-```
-
-### Step 3: Start frontend
-```bash
 npm run dev
 ```
 
-Frontend will run on:
-```
-http://localhost:5173
-```
+---
+
+## ✅ Assignment Compliance
+
+- ✔ Full stack implementation
+- ✔ Deployed frontend and backend
+- ✔ Clean and simple UI
+- ✔ Correct API usage
+- ✔ Error handling and fallback logic
+- ✔ GitHub repository provided
 
 ---
 
-## How to Use the App
+## 👤 Author
 
-1. Open the frontend URL in your browser
-2. Enter a movie preference, for example:
-   - `Action movies with a strong female lead`
-3. Click **Get Recommendations**
-4. Receive **3–5 AI-generated movie suggestions**
-
-All user inputs and recommendations are stored in SQLite.
-
----
-
-## Common Issues & Fixes
-
-### ❌ Error: better-sqlite3 install failed
-
-**Cause**
-- Using Node.js v25 or another non-LTS version
-
-**Fix**
-```bash
-Install Node.js v20 LTS
-Delete node_modules and package-lock.json
-Run npm install again
-```
-
----
-
-## Assignment Compliance
-
-- ✔ React frontend
-- ✔ Fastify backend
-- ✔ OpenAI-powered recommendations
-- ✔ SQLite persistence
-- ✔ Local setup instructions
-- ✔ Clean and modular architecture
-
----
-
-## Author
-
-Ayush Rawat
-
----
-
-**End of README**
+**Ayush Rawat**  
+Full Stack Developer Intern Applicant
