@@ -13,19 +13,12 @@ await app.register(cors, {
 
 app.register(recommendRoute);
 
-// 🔑 CRITICAL FIX FOR RENDER
+// 🔑 REQUIRED FOR RENDER
 const PORT = process.env.PORT || 3001;
 
-app.listen(
-  {
-    port: PORT,
-    host: '0.0.0.0'
-  },
-  (err, address) => {
-    if (err) {
-      app.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Server running on ${address}`);
-  }
-);
+await app.listen({
+  port: PORT,
+  host: '0.0.0.0'
+});
+
+console.log(`🚀 Server running on port ${PORT}`);
