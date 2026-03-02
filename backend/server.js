@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from '@fastify/cors';
 import recommendRoute from './routes/recommend.js';
 
-dotenv.config();
+dotenv.config(); 
 
 const app = Fastify({ logger: true });
 
